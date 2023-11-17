@@ -1,6 +1,6 @@
 #
-name: Create and publish Docker image
-
+name: Build and push Backstage image
+run-name: Build and push 'backstage-${{ github.event.inputs.image-suffix }}'
 on:
   workflow_dispatch:
     inputs:
