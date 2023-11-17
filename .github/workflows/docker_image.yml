@@ -10,7 +10,7 @@ on:
         options:
           - raw
           - build
-          - buil-sqlite3
+          - build-sqlite3
 
 env:
   REGISTRY: ghcr.io
