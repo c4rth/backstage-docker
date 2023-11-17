@@ -2,9 +2,15 @@
 name: Create and publish Docker image
 
 on:
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      image-suffix:
+        type: choice
+        description: Select the image
+        options:
+          - raw
+          - build
+          - buil-sqlite3
 
 env:
   REGISTRY: ghcr.io
@@ -31,7 +37,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ github.repository_owner }}/backstage
+          images: ${{ github.repository_owner }}/backstage-${{ github.event.inputs.image-suffix }}
           tags: |
             type=raw,value={{date 'YYYYMMDD-HHmmss'}}
 
@@ -42,11 +48,11 @@ jobs:
         uses: docker/build-push-action@v5.1.0
         with:
           context: .
-          file: ./Dockerfile
+          file: ./Dockerfile-${{ github.event.inputs.image-suffix }}
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            ghcr.io/${{ github.repository_owner }}/backstage:latest
+            ghcr.io/${{ github.repository_owner }}/backstage-${{ github.event.inputs.image-suffix }}:latest
             ghcr.io/${{ steps.meta.outputs.tags }}
           labels: |
             org.opencontainers.image.description=Backstage Docker image.
