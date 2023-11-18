@@ -1,9 +1,9 @@
 app:
-  title: Scaffolded Backstage App
+  title: Carth Backstage App - Local
   baseUrl: http://localhost:3000
 
 organization:
-  name: My Company
+  name: Carth - Local
 
 backend:
   # Used for enabling authentication, secret is shared by all backend plugins
@@ -74,29 +74,29 @@ catalog:
     entityFilename: catalog-info.yaml
     pullRequestBranchName: backstage-integration
   rules:
-    - allow: [Component, System, API, Resource, Location]
+    - allow: [Component, Group, User, Resource, Location, Template, API, Domain, System]
   locations:
-    # Local example data, file locations are relative to the backend process, typically `packages/backend`
-    - type: file
-      target: ../../examples/entities.yaml
+    # # Local example data, file locations are relative to the backend process, typically `packages/backend`
+    # - type: file
+    #   target: /app/examples/entities.yaml
 
-    # Local example template
-    - type: file
-      target: ../../examples/template/template.yaml
-      rules:
-        - allow: [Template]
+    # # Local example template
+    # - type: file
+    #   target: /app/examples/template/template.yaml
+    #   rules:
+    #     - allow: [Template]
 
-    # Local example organizational data
-    - type: file
-      target: ../../examples/org.yaml
-      rules:
-        - allow: [User, Group]
+    # # Local example organizational data
+    # - type: file
+    #   target: /app/examples/org.yaml
+    #   rules:
+    #     - allow: [User, Group]
 
     ## Uncomment these lines to add more example data
-    # - type: url
-    #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all.yaml
+    - type: url
+      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all.yaml
 
-    ## Uncomment these lines to add an example org
+    # ## Uncomment these lines to add an example org
     # - type: url
     #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme-corp.yaml
     #   rules:

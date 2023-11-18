@@ -33,9 +33,24 @@ import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
 import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
+import { ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import LightIcon from '@material-ui/icons/WbSunny';
+import myTheme from './Theme';
 
 const app = createApp({
   apis,
+  themes: [{
+    id: 'carth-theme',
+    title: 'Carth Light Theme',
+    variant: 'light',
+    icon: <LightIcon />,
+    Provider: ({ children }) => (
+      <ThemeProvider theme={myTheme}>
+        <CssBaseline>{children}</CssBaseline>
+      </ThemeProvider>
+    ),
+  }],
   bindRoutes({ bind }) {
     bind(catalogPlugin.externalRoutes, {
       createComponent: scaffolderPlugin.routes.root,

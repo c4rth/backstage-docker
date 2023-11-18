@@ -9,8 +9,8 @@ on:
         description: Select the image
         options:
           - raw
-          - build
-          - build-sqlite3
+          - base
+          - base-sqlite3
 
 env:
   REGISTRY: ghcr.io
