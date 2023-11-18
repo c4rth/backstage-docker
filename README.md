@@ -9,10 +9,23 @@
 - based on node:18-bookworm-slim
 - apt-get
     - python3
+    - python3-pip
+    - python3-venv
     - g++
     - build-essential
-    - mkdocs
+    - gcc
+    - musl-dev
+    - openjdk-17-jdk
+    - curl
+    - graphviz
+    - fonts-dejavu
+    - fontconfig
+- pip
+    - mkdocs-techdocs-core
+    - mkdocs-kroki-plugin
     - cookiecutter
+- misc
+    - plantuml jar file
 - :bulb: move better-sqlite3 to "devDependencies" in `packages/backend/package.json`.
 
 ### c4rth/backstage-base-sqlite3
