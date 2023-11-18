@@ -1,0 +1,90 @@
+version: "3.3"
+
+services:
+  traefik:
+    image: "traefik:v2.10"
+    container_name: "traefik"
+    command:
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.localhost`)"
+      - "traefik.http.routers.traefik.entrypoints=web"
+      - "traefik.http.routers.traefik.service=traefikService"
+      - "traefik.http.services.traefikService.loadBalancer.server.port=8080"
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+  whoami:
+    image: "traefik/whoami"
+    container_name: "simple-service"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`whoami.localhost`)"
+      - "traefik.http.routers.whoami.entrypoints=web"
+
+  portainer:
+    image: portainer/portainer-ce:linux-arm64
+    container_name: portainer
+    # ports:
+    #   - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.portainer.rule=Host(`portainer.localhost`)"
+      - "traefik.http.routers.portainer.entrypoints=web"
+      - "traefik.http.routers.portainer.service=portainerService"
+      - "traefik.http.services.portainerService.loadBalancer.server.port=9000"
+
+  db:
+    image: postgres
+    # expose:
+    #   - 5432
+    # ports:
+    #   - 5432:5432
+    container_name: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=example
+
+  adminer:
+    image: adminer
+    restart: always
+    container_name: adminer
+    # expose:
+    #   - 8000
+    # ports:
+    #   - 8000:8080
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.adminer.rule=Host(`adminer.localhost`)"
+      - "traefik.http.routers.adminer.entrypoints=web"
+      - "traefik.http.routers.adminer.service=adminerService"
+      - "traefik.http.services.adminerService.loadBalancer.server.port=8080"
+
+  backstage:
+    image: backstage-use-build-sqlite3:latest
+    restart: always
+    container_name: backstage
+    # ports:
+    #   - 7000:7007
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=example
+      - POSTGRES_HOST=postgres
+      #- POSTGRES_PORT=5432
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backstage.rule=Host(`backstage.localhost`)"
+      - "traefik.http.routers.backstage.entrypoints=web"
+      - "traefik.http.routers.backstage.service=backstageService"
+      - "traefik.http.services.backstageService.loadBalancer.server.port=7007"
