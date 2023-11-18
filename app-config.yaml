@@ -70,9 +70,6 @@ scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
 
 catalog:
-  import:
-    entityFilename: catalog-info.yaml
-    pullRequestBranchName: backstage-integration
   rules:
     - allow: [Component, Group, User, Resource, Location, Template, API, Domain, System]
   locations:
@@ -105,6 +102,16 @@ catalog:
     # Example component for TechDocs
     - type: url
       target: https://github.com/c4rth/backstage-demo-docs/blob/main/techdocs/catalog-info.yaml
+
+    # Example component for Templates
+    - type: url
+      target: https://github.com/c4rth/backstage-demo-templates/blob/main/scaffolder-templates/docs-template/template.yaml
+    - type: url
+      target: https://github.com/c4rth/backstage-demo-templates/blob/main/scaffolder-templates/clean-architecture-app/template.yaml
+    - type: url
+      target: https://github.com/c4rth/backstage-demo-templates/blob/main/scaffolder-templates/create-react-app/template.yaml
+    - type: url
+      target: https://github.com/c4rth/backstage-demo-templates/blob/main/scaffolder-templates/springboot-grpc-template/template.yaml
 
     # ## Uncomment these lines to add an example org
     # - type: url

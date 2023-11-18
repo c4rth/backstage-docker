@@ -1,6 +1,6 @@
 
-# ARG imagename=ghcr.io/c4rth/backstage-base-sqlite3:latest
-ARG imagename=backstage-base-sqlite3:latest
+ARG imagename=ghcr.io/c4rth/backstage-base-sqlite3:latest
+#ARG imagename=backstage-base-sqlite3:latest
 
 # Stage 1 - Create yarn install skeleton layer
 FROM ${imagename} AS packages
