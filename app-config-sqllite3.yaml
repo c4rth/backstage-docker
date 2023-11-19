@@ -72,49 +72,29 @@ scaffolder:
 catalog:
   rules:
     - allow: [Component, Group, User, Resource, Location, Template, API, Domain, System]
-  locations:
-    # # Local example data, file locations are relative to the backend process, typically `packages/backend`
-    # - type: file
-    #   target: /app/examples/entities.yaml
+  locations: []
+  # https://github.com/c4rth/backstage-demo-config/blob/main/catalog/all-in-one.yaml
+  # locations:
+  #   # Backstage example entities
+  #   - type: url
+  #     target: https://github.com/c4rth/backstage-demo-config/blob/main/catalog/all.yaml
 
-    # # Local example template
-    # - type: file
-    #   target: /app/examples/template/template.yaml
-    #   rules:
-    #     - allow: [Template]
+  #   # Backstage example groups and users
+  #   - type: url
+  #     target: https://github.com/c4rth/backstage-demo-config/blob/main/catalog/acme-corp.yaml
+  #     rules:
+  #       - allow: [User, Group]
 
-    # # Local example organizational data
-    # - type: file
-    #   target: /app/examples/org.yaml
-    #   rules:
-    #     - allow: [User, Group]
+  #   # Example component for TechDocs
+  #   - type: url
+  #     target: https://github.com/c4rth/backstage-demo-docs/blob/main/techdocs/catalog-info.yaml
 
-    # Backstage example entities
-    - type: url
-      target: https://github.com/c4rth/backstage-demo-config/blob/main/catalog/all.yaml
-
-    # Backstage example groups and users
-    - type: url
-      target: https://github.com/c4rth/backstage-demo-config/blob/main/catalog/acme-corp.yaml
-      rules:
-        - allow: [User, Group]
-
-    # Example component for TechDocs
-    - type: url
-      target: https://github.com/c4rth/backstage-demo-docs/blob/main/techdocs/catalog-info.yaml
-
-    # Example component for Templates
-    - type: url
-      target: https://github.com/c4rth/backstage-demo-templates/blob/main/scaffolder-templates/docs-template/template.yaml
-    - type: url
-      target: https://github.com/c4rth/backstage-demo-templates/blob/main/scaffolder-templates/clean-architecture-app/template.yaml
-    - type: url
-      target: https://github.com/c4rth/backstage-demo-templates/blob/main/scaffolder-templates/create-react-app/template.yaml
-    - type: url
-      target: https://github.com/c4rth/backstage-demo-templates/blob/main/scaffolder-templates/springboot-grpc-template/template.yaml
-
-    # ## Uncomment these lines to add an example org
-    # - type: url
-    #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme-corp.yaml
-    #   rules:
-    #     - allow: [User, Group]
+  #   # Example component for Templates
+  #   - type: url
+  #     target: https://github.com/c4rth/backstage-demo-templates/blob/main/scaffolder-templates/docs-template/template.yaml
+  #   - type: url
+  #     target: https://github.com/c4rth/backstage-demo-templates/blob/main/scaffolder-templates/clean-architecture-app/template.yaml
+  #   - type: url
+  #     target: https://github.com/c4rth/backstage-demo-templates/blob/main/scaffolder-templates/create-react-app/template.yaml
+  #   - type: url
+  #     target: https://github.com/c4rth/backstage-demo-templates/blob/main/scaffolder-templates/springboot-grpc-template/template.yaml
