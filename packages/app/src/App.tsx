@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { apiDocsPlugin, ApiExplorerPage } from '@backstage/plugin-api-docs';
 import {
   CatalogEntityPage,
@@ -37,11 +37,17 @@ import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import LightIcon from '@material-ui/icons/WbSunny';
-import myTheme from './Theme';
+import myTheme from './theme';
+import * as plugins from './plugins';
+import { AnnouncementsPage } from '@k-phoen/backstage-plugin-announcements';
+import { HomepageCompositionRoot } from '@backstage/plugin-home';
+import { HomePage } from './components/home/HomePage';
+
 
 
 const app = createApp({
   apis,
+  plugins: Object.values(plugins),
   themes: [{
     id: 'carth-theme',
     title: 'Carth Light Theme',
@@ -74,10 +80,12 @@ const app = createApp({
 
 const routes = (
   <FlatRoutes>
-    <Route path="/" element={<Navigate to="catalog" />} />
+    <Route path="/" element={<HomepageCompositionRoot />}>
+      <HomePage />
+    </Route>
     <Route path="/catalog" element={<CatalogIndexPage />} />
     <Route
-      path="/catalog/:namespace/:kind/:name"
+      path="/catalog/:  mespace/:kind/:name"
       element={<CatalogEntityPage />}
     >
       {entityPage}
@@ -112,6 +120,7 @@ const routes = (
     </Route>
     <Route path="/settings" element={<UserSettingsPage />} />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
+    <Route path="/announcements" element={<AnnouncementsPage />} />
   </FlatRoutes>
 );
 
