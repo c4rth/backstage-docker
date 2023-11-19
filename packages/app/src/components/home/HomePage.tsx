@@ -56,16 +56,19 @@ export const HomePage = () => {
               className={container}
               logo={<TemplateBackstageLogo classes={{ svg, path }} />}
             />
-            <Grid container>
-              <Grid item md={6}>
-                <AnnouncementsCard max={3} />
-              </Grid>
-            </Grid>
             <Grid container item xs={12} justifyContent='center'>
               <HomePageSearchBar
                 InputProps={{ classes: { root: classes.searchBarInput, notchedOutline: classes.searchBarOutline } }}
                 placeholder="Search"
               />
+            </Grid>
+            <Grid container item xs={12} justifyContent='center'>
+              <Grid item xs={12} md={6}>
+                <NewAnnouncementBanner />
+              </Grid>
+              <Grid item md={6}>
+                <AnnouncementsCard max={3} />
+              </Grid>
             </Grid>
             <Grid container item xs={12}>
               <Grid item xs={12} md={6}>
@@ -82,22 +85,13 @@ export const HomePage = () => {
               </Grid>
               <Grid item xs={12} md={6}>
                 <InfoCard title="Composable Section">
-                  {/* placeholder for content */}
                   <div style={{ height: 370 }} />
                 </InfoCard>
               </Grid>
-              <Grid item xs={12} md={6}>
-                <NewAnnouncementBanner />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid container>
-            <Grid item md={6}>
-              <AnnouncementsCard max={3} />
             </Grid>
           </Grid>
         </Content>
       </Page>
     </SearchContextProvider>
   );
-};
+}
