@@ -34,6 +34,21 @@ spec:
                 name: postgres-secrets
             - secretRef:
                 name: backstage-secrets
+          volumeMounts:
+            - name: backstage-app-config
+              mountPath: /app/app-config-from-configmap.yaml
+              subPath: app-config.yaml
+          resources:
+            requests:
+              memory: '512M'
+              cpu: '0.5'
+            limits:
+              memory: '2048M'
+              cpu: '2'
+      volumes:
+        - name: backstage-app-config
+          configMap:
+            name: backstage-config
 ---
 apiVersion: v1
 kind: Service
