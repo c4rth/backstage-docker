@@ -2,8 +2,6 @@ import {
   HomePageToolkit,
   HomePageCompanyLogo,
   HomePageStarredEntities,
-  TemplateBackstageLogo,
-  TemplateBackstageLogoIcon,
   WelcomeTitle,
 } from '@backstage/plugin-home';
 import { Content, Page, InfoCard } from '@backstage/core-components';
@@ -14,6 +12,9 @@ import {
 import { AnnouncementsCard, NewAnnouncementBanner } from '@k-phoen/backstage-plugin-announcements';
 import { Grid, makeStyles } from '@material-ui/core';
 import React from 'react';
+import LogoFull from '../Root/LogoFull';
+import CloudIcon from '@material-ui/icons/Cloud';
+import AzureDevOpsIcon from '../Root/logo/AzureDevOpsIcon';
 
 const useStyles = makeStyles(theme => ({
   searchBarInput: {
@@ -32,19 +33,12 @@ const useLogoStyles = makeStyles(theme => ({
   container: {
     margin: theme.spacing(5, 0),
   },
-  svg: {
-    width: 'auto',
-    height: 100,
-  },
-  path: {
-    fill: '#7df3e1',
-  },
 }));
 
 export const HomePage = () => {
 
   const classes = useStyles();
-  const { svg, path, container } = useLogoStyles();
+  const { container } = useLogoStyles();
 
   return (
     <SearchContextProvider>
@@ -54,7 +48,7 @@ export const HomePage = () => {
           <Grid container justifyContent="center" spacing={6}>
             <HomePageCompanyLogo
               className={container}
-              logo={<TemplateBackstageLogo classes={{ svg, path }} />}
+              logo={<LogoFull />}
             />
             <Grid container item xs={12} justifyContent='center'>
               <HomePageSearchBar
@@ -76,11 +70,11 @@ export const HomePage = () => {
               </Grid>
               <Grid item xs={12} md={6}>
                 <HomePageToolkit
-                  tools={Array(8).fill({
-                    url: '#',
-                    label: 'link',
-                    icon: <TemplateBackstageLogoIcon />,
-                  })}
+                  tools={[
+                    {url: 'https://portal.azure.com', label: 'Azure Portal', icon: <CloudIcon />},
+                    {url: 'https://dev.azure.com', label: 'Azure DevOps', icon: <AzureDevOpsIcon />},
+
+                  ]}
                 />
               </Grid>
               <Grid item xs={12} md={6}>

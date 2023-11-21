@@ -1,0 +1,62 @@
+backstage:
+  appConfig:
+    app:
+      title: Carth Backstage App - K8S
+      # Should be the same as backend.baseUrl when using the `app-backend` plugin.
+      baseUrl: http://x.x.x.x:3000
+
+    organization:
+      name: C4rth
+
+    backend:
+      # Note that the baseUrl should be the URL that the browser and other clients
+      # should use when communicating with the backend, i.e. it needs to be
+      # reachable not just from within the backend host, but from all of your
+      # callers. When its value is "http://localhost:7007", it's strictly private
+      # and can't be reached by others.
+      baseUrl: http://x.x.x.x:3000
+      # The listener can also be expressed as a single <host>:<port> string. In this case we bind to
+      # all interfaces, the most permissive setting. The right value depends on your specific deployment.
+      listen:
+        port: 7007
+      csp:
+        upgrade-insecure-requests: false
+        connect-src: ["'self'", 'http:', 'https:']
+        # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
+        # Default Helmet Content-Security-Policy values can be removed by setting the key to false
+      cors:
+        origin: http://x.x.x.x:3000
+        methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
+        credentials: true
+
+      # config options: https://node-postgres.com/api/client
+      database:
+        client: pg
+        connection:
+          host: ${POSTGRES_SERVICE_HOST}
+          port: ${POSTGRES_SERVICE_PORT}
+          user: ${POSTGRES_USER}
+          password: ${POSTGRES_PASSWORD}
+          # https://node-postgres.com/features/ssl
+          # you can set the sslmode configuration option via the `PGSSLMODE` environment variable
+          # see https://www.postgresql.org/docs/current/libpq-ssl.html Table 33.1. SSL Mode Descriptions (e.g. require)
+          # ssl:
+          #   ca: # if you have a CA file and want to verify it you can uncomment this section
+          #     $file: <file-path>/ca/server.crt
+
+    techdocs:
+      builder: 'local' # Alternatives - 'external' 'local'
+      generator:
+        runIn: 'local' # Alternatives - 'local' 'docker'
+      publisher:
+        type: 'local' # Alternatives - 'local' 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
+
+    auth:
+      # see https://backstage.io/docs/auth/ to learn about auth providers
+      providers: {}
+
+    catalog:
+      rules:
+        - allow: [Component, Group, User, Resource, Location, Template, API, Domain, System]
+      locations: []
+      # https://github.com/c4rth/backstage-demo-config/blob/main/catalog/all-in-one.yaml

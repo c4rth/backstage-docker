@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backstage-app-config
+  namespace: backstage
+data:
+  app-config.yaml: |
+    app:
+      baseUrl: http://x.x.x.x:3000
+      title: Carth Backstage App - K8S
+    auth:
+      providers: {}
+    backend:
+      baseUrl: http://x.x.x.x:3000
+      cors:
+        credentials: true
+        methods:
+        - GET
+        - HEAD
+        - PATCH
+        - POST
+        - PUT
+        - DELETE
+        origin: http://x.x.x.x:3000
+      csp:
+        connect-src:
+        - '''self'''
+        - 'http:'
+        - 'https:'
+        upgrade-insecure-requests: false
+      database:
+        client: pg
+        connection:
+          host: ${POSTGRES_SERVICE_HOST}
+          password: ${POSTGRES_PASSWORD}
+          port: ${POSTGRES_SERVICE_PORT}
+          user: ${POSTGRES_USER}
+      listen:
+        port: 7007
+    catalog:
+      locations: []
+      rules:
+      - allow:
+        - Component
+        - Group
+        - User
+        - Resource
+        - Location
+        - Template
+        - API
+        - Domain
+        - System
+    organization:
+      name: C4rth
+    techdocs:
+      builder: local
+      generator:
+        runIn: local
+      publisher:
+        type: local

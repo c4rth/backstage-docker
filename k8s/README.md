@@ -35,7 +35,8 @@ exit bash: exit
 
 ## Backstage
 ```
-kubectl apply -f 02-deploy-backstage.yaml
+kubectl apply -f 02-deploy-configmap.yaml
+kubectl apply -f 03-deploy-backstage.yaml
 ```
 
 ### Connect to backstage

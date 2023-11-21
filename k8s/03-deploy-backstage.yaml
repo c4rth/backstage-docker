@@ -34,6 +34,22 @@ spec:
                 name: postgres-secrets
             - secretRef:
                 name: backstage-secrets
+          volumeMounts:
+            - name: backstage-app-config
+              mountPath: "/app/app-config-from-configmap.yaml"
+              subPath: app-config.yaml
+      volumes:
+        - name: backstage-app-config
+          configMap:
+            name: backstage-app-config
+      readinessProbe:
+        httpGet:
+          port: 7007
+          path: /healthcheck
+      livenessProbe:
+        httpGet:
+        port: 7007
+        path: /healthcheck
 ---
 apiVersion: v1
 kind: Service
