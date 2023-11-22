@@ -1,0 +1,10 @@
+ARG imagename=ghcr.io/c4rth/backstage-base-sqlite3:latest
+FROM ${imagename}
+
+RUN mkdir ~/.npm-global
+RUN npm config set prefix '~/.npm-global'
+ENV PATH="${PATH}:/root/.npm-global/bin"
+
+# Install TechDocs cli
+RUN npm install @techdocs/cli -g --verbose
+RUN chmod 755 /root/.npm-global/bin/techdocs-cli
