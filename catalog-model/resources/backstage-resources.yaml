@@ -1,0 +1,29 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: backstage-db
+  description: Stores Backstage details
+spec:
+  type: database
+  owner: team-a
+  system: backstage-portal
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: backstage-storage
+  description: Store Backstage techdocs
+spec:
+  type: storage
+  owner: team-a
+  system: backstage-portal
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: backstage-app
+  description: Backstage application
+spec:
+  type: pod
+  owner: team-a
+  system: backstage-portal

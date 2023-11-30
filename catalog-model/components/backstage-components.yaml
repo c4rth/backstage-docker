@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: www-backstage
+  description: Backstage main website
+spec:
+  type: website
+  lifecycle: production
+  owner: team-a
+  system: backstage-portal
