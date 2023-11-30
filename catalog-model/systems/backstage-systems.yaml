@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: backstage-portal
+  description: Everything related to Backstage
+  tags:
+    - portal
+spec:
+  owner: team-a
+  domain: backstage

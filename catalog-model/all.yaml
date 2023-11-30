@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: carth-corp
+  description: Backstage example Groups
+spec:
+  targets:
+    - ./org/org.yaml
+    - ./all-components.yaml
+    - ./all-domains.yaml
+    - ./all-resources.yaml
+    - ./all-systems.yaml

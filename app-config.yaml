@@ -1,9 +1,19 @@
 app:
   title: Dummy # see configmap
   baseUrl: http://localhost:3000
+  support:
+      url: mailto:me@carth.xyz # Used by common ErrorPage
+      items: # Used by common SupportButton component
+        - title: Issues
+          icon: github
+          links:
+            #- url: https://github.com/c4rth/backstage-docker/issues
+            - url: mailto:me@carth.xyz
+              title: GitHub Issues
 
 organization:
-  name: Dummy
+  name: Carth
+
 
 backend:
   baseUrl: http://localhost:7007
@@ -12,8 +22,23 @@ backend:
   database:
     client: better-sqlite3
     connection: ':memory:'
+  cors:
+    origin: http://localhost:3000
+    methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
+    credentials: true
 
 catalog:
   rules:
     - allow: [Component, Group, User, Resource, Location, Template, API, Domain, System]
-  locations: []
+  import:
+    entityFilename: catalog-info.yaml
+  locations:
+    - type: file
+      target: ../../catalog-model/all.yaml
+
+techdocs:
+  builder: 'local' # Alternatives - 'external' 'local'
+  generator:
+    runIn: 'local' # Alternatives - 'local' 'docker'
+  publisher:
+    type: 'local' # Alternatives - 'local' 'googleGcs' or 'awsS3'. Read documentation for using alternatives.

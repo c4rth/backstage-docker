@@ -1,0 +1,20 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: carth-corp
+  description: The carth-corp organization
+spec:
+  type: organization
+  profile:
+    displayName: Carth Corp
+  children: [infrastructure]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: example-groups
+  description: A collection of all Backstage example Groups
+spec:
+  targets:
+    - ./backstage-group.yaml
+    - ./team-a-group.yaml
