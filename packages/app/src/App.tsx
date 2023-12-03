@@ -37,7 +37,8 @@ import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import LightIcon from '@material-ui/icons/WbSunny';
-import myTheme from './theme';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import { myDarkTheme, myLightTheme } from './theme';
 import * as plugins from './plugins';
 import { AnnouncementsPage } from '@k-phoen/backstage-plugin-announcements';
 import { HomepageCompositionRoot } from '@backstage/plugin-home';
@@ -49,12 +50,23 @@ const app = createApp({
   apis,
   plugins: Object.values(plugins),
   themes: [{
-    id: 'carth-theme',
+    id: 'carth-light-theme',
     title: 'Carth Light Theme',
     variant: 'light',
     icon: <LightIcon />,
     Provider: ({ children }) => (
-      <ThemeProvider theme={myTheme}>
+      <ThemeProvider theme={myLightTheme}>
+        <CssBaseline>{children}</CssBaseline>
+      </ThemeProvider>
+    ),
+  },
+  {
+    id: 'carth-dark-theme',
+    title: 'Carth Dark Theme',
+    variant: 'dark',
+    icon: <Brightness4Icon />,
+    Provider: ({ children }) => (
+      <ThemeProvider theme={myDarkTheme}>
         <CssBaseline>{children}</CssBaseline>
       </ThemeProvider>
     ),

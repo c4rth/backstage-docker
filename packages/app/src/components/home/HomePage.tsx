@@ -4,7 +4,7 @@ import {
   HomePageStarredEntities,
   WelcomeTitle,
 } from '@backstage/plugin-home';
-import { Content, Page, InfoCard } from '@backstage/core-components';
+import { Content, InfoCard, PageWithHeader } from '@backstage/core-components';
 import { HomePageSearchBar } from '@backstage/plugin-search';
 import {
   SearchContextProvider,
@@ -14,7 +14,7 @@ import { Grid, makeStyles } from '@material-ui/core';
 import React from 'react';
 import LogoFull from '../Root/LogoFull';
 import CloudIcon from '@material-ui/icons/Cloud';
-import AzureDevOpsIcon from '../Root/logo/AzureDevOpsIcon';
+import AzureDevOpsIcon from '../icon/AzureDevOpsIcon';
 
 const useStyles = makeStyles(theme => ({
   searchBarInput: {
@@ -42,7 +42,7 @@ export const HomePage = () => {
 
   return (
     <SearchContextProvider>
-      <Page themeId="home">
+      <PageWithHeader themeId="home" title="Home">
         <Content>
           <WelcomeTitle language={["en"]} />
           <Grid container justifyContent="center" spacing={6}>
@@ -73,7 +73,6 @@ export const HomePage = () => {
                   tools={[
                     {url: 'https://portal.azure.com', label: 'Azure Portal', icon: <CloudIcon />},
                     {url: 'https://dev.azure.com', label: 'Azure DevOps', icon: <AzureDevOpsIcon />},
-
                   ]}
                 />
               </Grid>
@@ -85,7 +84,7 @@ export const HomePage = () => {
             </Grid>
           </Grid>
         </Content>
-      </Page>
+      </PageWithHeader>
     </SearchContextProvider>
   );
 }

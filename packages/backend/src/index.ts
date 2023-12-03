@@ -21,7 +21,7 @@ import {
 } from '@backstage/backend-common';
 import { TaskScheduler } from '@backstage/backend-tasks';
 import { Config } from '@backstage/config';
-import healthcheck from './plugins/healthcheck';
+import healthcheck from './plugins/healthchecks';
 import app from './plugins/app';
 import auth from './plugins/auth';
 import catalog from './plugins/catalog';
