@@ -28,6 +28,7 @@
     "@backstage/plugin-catalog-graph": "^0.3.1",
     "@backstage/plugin-catalog-import": "^0.10.3",
     "@backstage/plugin-catalog-react": "^1.9.1",
+    "@backstage/plugin-explore": "^0.4.13",
     "@backstage/plugin-github-actions": "^0.6.8",
     "@backstage/plugin-home": "^0.5.11",
     "@backstage/plugin-org": "^0.6.17",

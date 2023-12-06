@@ -34,10 +34,7 @@ import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
 import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
-import { ThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import LightIcon from '@material-ui/icons/WbSunny';
-import myTheme from './theme';
+import { carthThemes } from './carthThemes';
 import * as plugins from './plugins';
 import { AnnouncementsPage } from '@k-phoen/backstage-plugin-announcements';
 import { HomepageCompositionRoot } from '@backstage/plugin-home';
@@ -48,17 +45,7 @@ import { HomePage } from './components/home/HomePage';
 const app = createApp({
   apis,
   plugins: Object.values(plugins),
-  themes: [{
-    id: 'carth-theme',
-    title: 'Carth Light Theme',
-    variant: 'light',
-    icon: <LightIcon />,
-    Provider: ({ children }) => (
-      <ThemeProvider theme={myTheme}>
-        <CssBaseline>{children}</CssBaseline>
-      </ThemeProvider>
-    ),
-  }],
+  themes: carthThemes,
   bindRoutes({ bind }) {
     bind(catalogPlugin.externalRoutes, {
       createComponent: scaffolderPlugin.routes.root,
@@ -85,7 +72,7 @@ const routes = (
     </Route>
     <Route path="/catalog" element={<CatalogIndexPage />} />
     <Route
-      path="/catalog/:  mespace/:kind/:name"
+      path="/catalog/:namespace/:kind/:name"
       element={<CatalogEntityPage />}
     >
       {entityPage}

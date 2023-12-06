@@ -8,6 +8,7 @@ import {
 import Docker from 'dockerode';
 import { Router } from 'express';
 import { PluginEnvironment } from '../types';
+import { AnnotationBasedBuildStrategy } from '../techdocs/AnnotationBasedBuildStrategy';
 
 export default async function createPlugin(
   env: PluginEnvironment,
@@ -36,6 +37,11 @@ export default async function createPlugin(
     discovery: env.discovery,
   });
 
+  // Build Strategy
+  const docsBuildStrategy = new AnnotationBasedBuildStrategy({
+    logger: env.logger,
+  });
+
   // checks if the publisher is working and logs the result
   await publisher.getReadiness();
 
@@ -47,5 +53,6 @@ export default async function createPlugin(
     config: env.config,
     discovery: env.discovery,
     cache: env.cache,
+    docsBuildStrategy: docsBuildStrategy,
   });
 }

@@ -20,6 +20,7 @@
     - graphviz
     - fonts-dejavu
     - fontconfig
+    - git
 - pip
     - mkdocs-techdocs-core
     - mkdocs-kroki-plugin

@@ -6,14 +6,15 @@ import {
   TemplateBackstageLogoIcon,
   WelcomeTitle,
 } from '@backstage/plugin-home';
-import { Content, Page, InfoCard } from '@backstage/core-components';
+import { Content, InfoCard, Page, } from '@backstage/core-components';
 import { HomePageSearchBar } from '@backstage/plugin-search';
 import {
   SearchContextProvider,
 } from '@backstage/plugin-search-react';
 import { AnnouncementsCard, NewAnnouncementBanner } from '@k-phoen/backstage-plugin-announcements';
 import { Grid, makeStyles } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { configApiRef, useApi } from '@backstage/core-plugin-api';
 
 const useStyles = makeStyles(theme => ({
   searchBarInput: {
@@ -45,12 +46,19 @@ export const HomePage = () => {
 
   const classes = useStyles();
   const { svg, path, container } = useLogoStyles();
+  const configApi = useApi(configApiRef);
+  const appTitle = configApi.getOptionalString('app.title') || 'Backstage';
+  const title = `Home | ${appTitle}`;
+
+  useEffect(() => {
+    document.title = title;
+  }, []);
 
   return (
-    <SearchContextProvider>
+    <SearchContextProvider >
       <Page themeId="home">
         <Content>
-          <WelcomeTitle language={["en"]} />
+          <WelcomeTitle language={["English"]} />
           <Grid container justifyContent="center" spacing={6}>
             <HomePageCompanyLogo
               className={container}
@@ -76,11 +84,10 @@ export const HomePage = () => {
               </Grid>
               <Grid item xs={12} md={6}>
                 <HomePageToolkit
-                  tools={Array(8).fill({
-                    url: '#',
-                    label: 'link',
-                    icon: <TemplateBackstageLogoIcon />,
-                  })}
+                  tools={[
+                    { url: 'https://portal.azure.com', label: 'Azure Portal', icon: <TemplateBackstageLogoIcon />, },
+                    { url: 'https://www.google.com', label: 'Google', icon: <TemplateBackstageLogoIcon />, },
+                  ]}
                 />
               </Grid>
               <Grid item xs={12} md={6}>

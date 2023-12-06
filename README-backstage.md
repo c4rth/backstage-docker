@@ -13,40 +13,8 @@ add PgSearchEngine (search engin for PostgreSQL)
     ```
 
 ## Theme
-- Add `packages\app\src\theme.ts`
+- Add `packages\app\src\cartThemes.tsx`
 - Update `packages\app\src\App.tsx`
-    ```
-    ...
-    import myTheme from './theme';
-    ...
-    const app = createApp({
-        apis,
-        plugins: Object.values(plugins),
-        themes: [{
-            id: 'carth-theme',
-            title: 'Carth Light Theme',
-            variant: 'light',
-            icon: <LightIcon />,
-            Provider: ({ children }) => (
-            <ThemeProvider theme={myTheme}>
-                <CssBaseline>{children}</CssBaseline>
-            </ThemeProvider>
-            ),
-        }],
-
-    ```
-
-## Customize Menu : add external link
-- Update `packages\app\src\components\Root\Root.tsx`
-    ```
-    ...
-    import CloudIcon from '@material-ui/icons/Cloud';
-    ...
-    export const Root = ({ children }: PropsWithChildren<{}>) => (
-        ...
-        <SidebarItem icon={CloudIcon} to="https://portal.azure.com/" text="Azure Portal" />
-        ...
-    ```
 
 ## Plugin Shortcuts https://www.npmjs.com/package/@backstage/plugin-shortcuts
 add plugin @backstage/plugin-shortcuts
@@ -124,3 +92,6 @@ add plugin @k-phoen/backstage-plugin-announcements
 - Create `packages\app\src\components\home\HomePage.tsx`
 - Update `packages\app\src\App.tsx`
 - Update `packages\app\src\components\Root\Root.tsx`
+
+## Plugin Grafana: https://github.com/K-Phoen/backstage-plugin-grafana
+- `yarn add --cwd packages/app @k-phoen/backstage-plugin-grafana`

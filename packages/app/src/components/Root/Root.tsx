@@ -29,7 +29,6 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import { Shortcuts } from '@backstage/plugin-shortcuts';
-import CloudIcon from '@material-ui/icons/Cloud';
 import CategoryIcon from '@material-ui/icons/Category';
 import { useApp } from '@backstage/core-plugin-api';
 
@@ -114,7 +113,6 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
         </SidebarItem>
         <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" />
         <SidebarItem icon={LibraryBooks} to="docs" text="TechDocs" />
-        <SidebarItem icon={CloudIcon} to="https://portal.azure.com/" text="Azure Portal" />
         <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
         {/* End global nav */}
         <SidebarDivider />
