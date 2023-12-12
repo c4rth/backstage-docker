@@ -1,5 +1,5 @@
 
-ARG imagename=ghcr.io/c4rth/backstage-base-sqlite3:latest
+ARG imagename=c4rth/backstage-base-sqlite3:latest
 
 # Stage 1 - Create yarn install skeleton layer
 FROM ${imagename} AS packages
@@ -20,9 +20,10 @@ USER node
 WORKDIR /app
 
 COPY --from=packages --chown=node:node /app .
+COPY --from=packages --chown=node:node /node-headers ./node-headers
 
 RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid=1000 \
-    yarn install --frozen-lockfile --network-timeout 600000
+    npm_config_tarball=/node-headers/node-headers.tar.gz yarn install --frozen-lockfile --network-timeout 600000 --verbose
 
 COPY --chown=node:node . .
 # COPY --chown=node:node app-config-psql.yaml ./app-config.yaml
