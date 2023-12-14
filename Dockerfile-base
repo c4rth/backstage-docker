@@ -1,27 +1,24 @@
-FROM node:18-bookworm-slim
+ARG NODE_VERSION=18.18.2
+FROM node:${NODE_VERSION}-bookworm-slim
 
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     apt-get update && \
-    apt-get install -y --no-install-recommends python3 python3-pip python3-venv g++ build-essential gcc musl-dev openjdk-17-jdk curl graphviz fonts-dejavu fontconfig && \
+    apt-get install -y --no-install-recommends python3 python3-pip python3-venv g++ build-essential gcc git musl-dev openjdk-17-jdk curl graphviz fonts-dejavu fontconfig && \
     yarn config set python /usr/bin/python3
+
+# Node headers for gyp
+RUN mkdir node-headers && cd node-headers && curl -Lo node-headers.tar.gz https://nodejs.org/download/release/v${NODE_VERSION}/node-v${NODE_VERSION}-headers.tar.gz
 
 # Set up a virtual environment for mkdocs-techdocs-core.
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-# Install MkDocs
-# https://backstage.io/docs/features/techdocs/getting-started#disabling-docker-in-docker-situation-optional
-RUN pip3 install mkdocs-techdocs-core
-# Install MkDocs - Mermaid
-RUN pip3 install mkdocs-kroki-plugin
+# Install MkDocs plugins + Cookiecutter
+# https://backstage.io/docs/features/software-templates/configuration#disabling-docker-in-docker-situation-optional
+RUN pip3 install cookiecutter mkdocs-techdocs-core mkdocs-section-index mkdocs-git-revision-date-localized-plugin mkdocs-git-authors-plugin
 # Install PlantUml
 RUN curl -o plantuml.jar -L https://github.com/plantuml/plantuml/releases/download/v1.2023.12/plantuml-1.2023.12.jar && mv plantuml.jar /opt/plantuml.jar
 RUN echo '#!/bin/sh\n\njava -jar '/opt/plantuml.jar' ${@}' >> /usr/local/bin/plantuml
 RUN chmod 755 /usr/local/bin/plantuml
-
-
-# Install CookieCutter
-# https://backstage.io/docs/features/software-templates/configuration#disabling-docker-in-docker-situation-optional
-RUN pip3 install cookiecutter
