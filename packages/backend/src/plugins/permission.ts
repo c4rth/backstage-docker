@@ -7,7 +7,7 @@ import { BackstageIdentityResponse } from '@backstage/plugin-auth-node';
 
 class TestPermissionPolicy implements PermissionPolicy {
 
-  async handle(request: PolicyQuery, _user?: BackstageIdentityResponse | undefined): Promise<PolicyDecision> {
+  async handle(_request: PolicyQuery, _user?: BackstageIdentityResponse | undefined): Promise<PolicyDecision> {
     return {
       result: AuthorizeResult.ALLOW
     };
