@@ -1,8 +1,6 @@
 import {
   HomePageToolkit,
-  HomePageCompanyLogo,
   HomePageStarredEntities,
-  TemplateBackstageLogo,
   TemplateBackstageLogoIcon,
   WelcomeTitle,
 } from '@backstage/plugin-home';
@@ -29,23 +27,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const useLogoStyles = makeStyles(theme => ({
-  container: {
-    margin: theme.spacing(5, 0),
-  },
-  svg: {
-    width: 'auto',
-    height: 100,
-  },
-  path: {
-    fill: '#7df3e1',
-  },
-}));
 
 export const HomePage = () => {
 
   const classes = useStyles();
-  const { svg, path, container } = useLogoStyles();
   const configApi = useApi(configApiRef);
   const appTitle = configApi.getOptionalString('app.title') || 'Backstage';
   const title = `Home | ${appTitle}`;
@@ -60,10 +45,6 @@ export const HomePage = () => {
         <Content>
           <WelcomeTitle language={["English"]} />
           <Grid container justifyContent="center" spacing={6}>
-            <HomePageCompanyLogo
-              className={container}
-              logo={<TemplateBackstageLogo classes={{ svg, path }} />}
-            />
             <Grid container item xs={12} justifyContent='center'>
               <HomePageSearchBar
                 InputProps={{ classes: { root: classes.searchBarInput, notchedOutline: classes.searchBarOutline } }}

@@ -1,0 +1,32 @@
+site_name: 'Example Documentation'
+repo_url: https://github.com/c4rth/backstage-docker
+
+version: 2
+
+theme:
+  name: material
+  features:
+    - navigation.indexes
+
+nav:
+  - Home: index.md
+  - Subpage: sub-page.md
+  - 'Code Sample 2': code/code-sample.md
+  - Extensions: extensions.md
+  - Subpages:
+    - subpages/index.md
+    - Subpage 1:
+      - subpages/subpage1/index.md
+      - Subpage 1-1: subpages/subpage1/subpage11.md
+      - Subpage 1-2: subpages/subpage1/subpage12.md
+    - Subpage 2: subpages/subpage2.md
+
+plugins:
+  - techdocs-core
+
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_div_format
