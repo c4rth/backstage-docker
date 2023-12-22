@@ -14,8 +14,18 @@ app:
 organization:
   name: Carth
 
+auth:
+  environment: development
+
 permission:
   enabled: true
+  rbac:
+    database:
+      enabled: true
+    admin:
+      users:
+        - name: user:default/guest
+        - name: group:default/admins
 
 backend:
   auth:
@@ -31,6 +41,10 @@ backend:
     origin: http://localhost:3000
     methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
     credentials: true
+  reading:
+    allow:
+    - host: '*.github.com'
+    - host: '*.githubusercontent.com'
 
 catalog:
   rules:
@@ -38,8 +52,14 @@ catalog:
   import:
     entityFilename: catalog-info.yaml
   locations:
+    #- type: file
+    #  target: ../../catalog-model/model1/all.yaml
+    #- type: file
+    #  target: ../../docs/catalog-info.yaml
     - type: file
-      target: ../../catalog-model/all.yaml
+      target: ../../catalog-model/examples/entities.yaml
+    - type: file
+      target: ../../catalog-model/examples/org.yaml
     - type: file
       target: ../../docs/catalog-info.yaml
 

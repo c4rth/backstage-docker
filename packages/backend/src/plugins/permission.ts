@@ -1,18 +1,16 @@
 import { createRouter } from '@backstage/plugin-permission-backend';
-import { AuthorizeResult, PolicyDecision } from '@backstage/plugin-permission-common';
-import { PermissionPolicy, PolicyQuery } from '@backstage/plugin-permission-node';
+import {
+  AuthorizeResult,
+  PolicyDecision,
+} from '@backstage/plugin-permission-common';
+import { PermissionPolicy } from '@backstage/plugin-permission-node';
 import { Router } from 'express';
 import { PluginEnvironment } from '../types';
-import { BackstageIdentityResponse } from '@backstage/plugin-auth-node';
 
 class TestPermissionPolicy implements PermissionPolicy {
-
-  async handle(_request: PolicyQuery, _user?: BackstageIdentityResponse | undefined): Promise<PolicyDecision> {
-    return {
-      result: AuthorizeResult.ALLOW
-    };
+  async handle(): Promise<PolicyDecision> {
+    return { result: AuthorizeResult.ALLOW };
   }
-
 }
 
 export default async function createPlugin(
@@ -23,6 +21,33 @@ export default async function createPlugin(
     logger: env.logger,
     discovery: env.discovery,
     policy: new TestPermissionPolicy(),
-    identity: env.identity
+    identity: env.identity,
   });
 }
+
+/*import { Router } from 'express';
+
+import {
+  PluginIdProvider,
+  PolicyBuilder,
+} from '@janus-idp/backstage-plugin-rbac-backend';
+
+import { PluginEnvironment } from '../types';
+
+export default async function createPlugin(
+  env: PluginEnvironment,
+  pluginIdProvider: PluginIdProvider,
+): Promise<Router> {
+  return PolicyBuilder.build(
+    {
+      config: env.config,
+      logger: env.logger,
+      discovery: env.discovery,
+      identity: env.identity,
+      permissions: env.permissions,
+      tokenManager: env.tokenManager,
+    },
+    pluginIdProvider,
+  );
+}
+*/
