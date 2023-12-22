@@ -1,6 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
+  namespace: c4rth
   name: documented-component
   title: Documented Component
   description: A Service with TechDocs documentation
