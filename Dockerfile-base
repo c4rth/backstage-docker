@@ -1,9 +1,9 @@
-FROM node:18-bookworm-slim
+FROM node:20-bookworm-slim
 
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     apt-get update && \
-    apt-get install -y --no-install-recommends python3 python3-pip python3-venv g++ build-essential gcc musl-dev openjdk-17-jdk curl graphviz fonts-dejavu fontconfig && \
+    apt-get install -y --no-install-recommends ca-certificates python3 python3-pip python3-venv g++ build-essential gcc musl-dev openjdk-17-jdk curl graphviz fonts-dejavu fontconfig && \
     yarn config set python /usr/bin/python3
 
 # Set up a virtual environment for mkdocs-techdocs-core.
@@ -14,10 +14,8 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 # Install MkDocs
 # https://backstage.io/docs/features/techdocs/getting-started#disabling-docker-in-docker-situation-optional
 RUN pip3 install mkdocs-techdocs-core
-# Install MkDocs - Mermaid
-RUN pip3 install mkdocs-kroki-plugin
 # Install PlantUml
-RUN curl -o plantuml.jar -L https://github.com/plantuml/plantuml/releases/download/v1.2023.12/plantuml-1.2023.12.jar && mv plantuml.jar /opt/plantuml.jar
+RUN curl -o plantuml.jar -L https://github.com/plantuml/plantuml/releases/download/v1.2024.6/plantuml-1.2024.6.jar && mv plantuml.jar /opt/plantuml.jar
 RUN echo '#!/bin/sh\n\njava -jar '/opt/plantuml.jar' ${@}' >> /usr/local/bin/plantuml
 RUN chmod 755 /usr/local/bin/plantuml
 

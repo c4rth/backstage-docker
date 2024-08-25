@@ -14,18 +14,36 @@ app:
 organization:
   name: Carth
 
-
 backend:
+  auth:
+    # https://backstage.io/docs/tutorials/auth-service-migration/#disabling-the-default-auth-policy
+    dangerouslyDisableDefaultAuthPolicy: true
   baseUrl: http://localhost:7007
   listen:
     port: 7007
-  database:
-    client: better-sqlite3
-    connection: ':memory:'
+  csp:
+    connect-src: ["'self'", 'http:', 'https:']
+    # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
+    # Default Helmet Content-Security-Policy values can be removed by setting the key to false
   cors:
     origin: http://localhost:3000
     methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
+  # This is for local development only, it is not recommended to use this in production
+  # The production database configuration is stored in app-config.production.yaml
+  database:
+    client: better-sqlite3
+    connection: ':memory:'
     credentials: true
+
+techdocs:
+  builder: 'local' # Alternatives - 'external' 'local'
+  generator:
+    runIn: 'local' # Alternatives - 'local' 'docker'
+  publisher:
+    type: 'local' # Alternatives - 'local' 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
+
+scaffolder:
+  # see https://backstage.io/docs/features/software-templates/configuration for software template options
 
 catalog:
   rules:
@@ -36,9 +54,10 @@ catalog:
     - type: file
       target: ../../catalog-model/all.yaml
 
-techdocs:
-  builder: 'local' # Alternatives - 'external' 'local'
-  generator:
-    runIn: 'local' # Alternatives - 'local' 'docker'
-  publisher:
-    type: 'local' # Alternatives - 'local' 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
+#kubernetes:
+  # see https://backstage.io/docs/features/kubernetes/configuration for kubernetes configuration options
+
+# see https://backstage.io/docs/permissions/getting-started for more on the permission framework
+permission:
+  # setting this to `false` will disable permissions
+  enabled: false
