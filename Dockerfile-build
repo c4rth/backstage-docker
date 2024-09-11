@@ -1,16 +1,14 @@
 
-ARG imagename=c4rth/backstage-base:latest
+ARG imagename=c4rth/backstage-base:20240911.2
 
 # Stage 1 - Create yarn install skeleton layer
 FROM ${imagename} AS packages
 
 WORKDIR /app
-COPY package.json yarn.lock ./
-
-COPY packages packages
+COPY . .
 
 # Comment this out if you don't have any internal plugins
-COPY plugins plugins
+#COPY plugins plugins
 
 RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -exec rm -rf {} \+
 
@@ -60,6 +58,6 @@ COPY --from=build --chown=node:node /app/packages/backend/dist/bundle/ ./
 # COPY --chown=node:node app-config-psql.yaml ./app-config.yaml
 
 # This switches many Node.js dependencies to production mode.
-ENV NODE_ENV production
+ENV NODE_ENV=production
 
 CMD ["node", "packages/backend", "--config", "/app/app-config-from-configmap.yaml"]
