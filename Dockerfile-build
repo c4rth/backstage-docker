@@ -1,5 +1,5 @@
 
-ARG imagename=ghcr.io/c4rth/backstage-base:latest
+ARG imagename=c4rth/backstage-base:latest
 
 # Stage 1 - Create yarn install skeleton layer
 FROM ${imagename} AS packages
