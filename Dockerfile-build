@@ -5,10 +5,11 @@ ARG imagename=c4rth/backstage-base:20240911.2
 FROM ${imagename} AS packages
 
 WORKDIR /app
-COPY . .
+COPY package.json yarn.lock ./
+COPY packages packages
 
 # Comment this out if you don't have any internal plugins
-#COPY plugins plugins
+COPY plugins plugins
 
 RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -exec rm -rf {} \+
 
@@ -55,9 +56,10 @@ RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid
 COPY --from=build --chown=node:node /app/packages/backend/dist/bundle/ ./
 
 # Copy any other files that we need at runtime
-# COPY --chown=node:node app-config-psql.yaml ./app-config.yaml
+COPY --chown=node:node app-config-psql.yaml ./app-config.yaml
 
 # This switches many Node.js dependencies to production mode.
 ENV NODE_ENV=production
 
-CMD ["node", "packages/backend", "--config", "/app/app-config-from-configmap.yaml"]
+#CMD ["node", "packages/backend", "--config", "/app/app-config-from-configmap.yaml"]
+CMD ["node", "packages/backend", "--config", "/app/app-config.yaml"]
