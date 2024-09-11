@@ -10,7 +10,6 @@ on:
         options:
           - raw
           - base
-          - base-sqlite3
 
 env:
   REGISTRY: ghcr.io
