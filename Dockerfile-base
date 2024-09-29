@@ -24,7 +24,7 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 # Install MkDocs
 # https://backstage.io/docs/features/techdocs/getting-started#disabling-docker-in-docker-situation-optional
 RUN pip3 install mkdocs-techdocs-core markdown-inline-mermaid
-
+# mermaid https://backstage.io/docs/features/techdocs/how-to-guides/#using-markdown-inline-mermaid
 RUN yarn global add @mermaid-js/mermaid-cli
 
 # Install CookieCutter
