@@ -30,7 +30,7 @@ RUN pip3 install mkdocs-techdocs-core mkdocs-git-revision-date-localized-plugin
 RUN pip3 install cookiecutter
 
 # Install PlantUml
-RUN curl -o plantuml.jar -L https://github.com/plantuml/plantuml/releases/download/v1.2024.7/plantuml-1.2024.7.jar && mv plantuml.jar /opt/plantuml.jar
+RUN curl -o plantuml.jar -L https://github.com/plantuml/plantuml/releases/download/v1.2024.8/plantuml-1.2024.8.jar && mv plantuml.jar /opt/plantuml.jar
 RUN echo '#!/bin/sh\n\njava -jar '/opt/plantuml.jar' ${@}' >> /usr/local/bin/plantuml
 RUN chmod 755 /usr/local/bin/plantuml
 
