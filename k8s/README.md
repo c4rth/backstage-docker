@@ -13,13 +13,13 @@ eval $(minikube docker-env)
 
 ### Build
 ```
-docker pull ghcr.io/c4rth/backstage-base:latest
-docker build . -f Dockerfile-build-psql -t backstage-build-psql:latest
+docker pull c4rth/backstage-base:latest
+docker build . -f Dockerfile-build -t backstage-build:latest
 ```
 
 ## Namespace & PostgreSQL
 ```
-kubectl apply -f 01-deploy-psql.yaml
+kubectl apply -f ./k8s/01-deploy-psql.yaml
 ```
 
 ### Verify installation
@@ -35,15 +35,15 @@ exit bash: exit
 
 ## Backstage
 ```
-kubectl apply -f 02-deploy-configmap.yaml
-kubectl apply -f 03-deploy-backstage.yaml
+kubectl apply -f ./k8s/02-deploy-configmap.yaml
+kubectl apply -f ./k8s/03-deploy-backstage.yaml
 ```
 
 ### Connect to backstage
 ```
-kubectl port-forward service/backstage --namespace=backstage 7000:3000
+kubectl port-forward service/backstage --namespace=backstage 8080:80
 ```
-http://localhost:7000
+http://localhost:8080
 
 ### Add catalog
 ```

@@ -6,12 +6,12 @@ metadata:
 data:
   app-config.yaml: |-
     app:
-      title: Carth Backstage App - K8S
+      title: K8S Backstage
       # Should be the same as backend.baseUrl when using the `app-backend` plugin.
       baseUrl: http://x.x.x.x:3000
 
     organization:
-      name: C4rth
+      name: K8S C4rTh
 
     backend:
       # Note that the baseUrl should be the URL that the browser and other clients

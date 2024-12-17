@@ -1,6 +1,7 @@
 app:
   title: Dummy # see configmap
-  baseUrl: http://localhost:3000
+  #baseUrl: http://localhost:3000
+  baseUrl: http://x.x.x.x:3000
   support:
       url: mailto:me@carth.xyz # Used by common ErrorPage
       items: # Used by common SupportButton component
@@ -12,13 +13,14 @@ app:
               title: GitHub Issues
 
 organization:
-  name: Carth
+  name: Dummy
 
 backend:
   auth:
     # https://backstage.io/docs/tutorials/auth-service-migration/#disabling-the-default-auth-policy
     dangerouslyDisableDefaultAuthPolicy: true
-  baseUrl: http://localhost:7007
+  #baseUrl: http://localhost:7007
+  baseUrl: http://x.x.x.x:7007
   listen:
     port: 7007
   csp:
@@ -26,7 +28,8 @@ backend:
     # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
     # Default Helmet Content-Security-Policy values can be removed by setting the key to false
   cors:
-    origin: http://localhost:3000
+    #origin: http://localhost:3000
+    origin: http://x.x.x.x:3000
     methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
   # This is for local development only, it is not recommended to use this in production
   # The production database configuration is stored in app-config.production.yaml
