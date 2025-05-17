@@ -1,0 +1,57 @@
+FROM node:22-alpine
+
+# Install necessary packages using Alpine's apk
+RUN --mount=type=cache,target=/var/cache/apk \
+    apk add --no-cache \
+    ca-certificates \
+    python3 \
+    py3-pip \
+    py3-virtualenv \
+    gcc \
+    musl-dev \
+    curl \    
+    gnupg \
+    git \
+    graphviz \
+    fontconfig
+#RUN --mount=type=cache,target=/var/cache/apk \
+#    apk add --no-cache \
+#    dejavu-fonts-ttf
+
+# Install Azul Zulu 21
+ENV LANG=en_US.UTF-8
+ARG ZULU_KEY_SHA256=6c6393d4755818a15cf055a5216cffa599f038cd508433faed2226925956509a
+RUN set -ex && \
+    apk update && apk upgrade --no-cache && \
+    wget --quiet https://cdn.azul.com/public_keys/alpine-signing@azul.com-5d5dc44c.rsa.pub -P /etc/apk/keys/ && \
+    echo "${ZULU_KEY_SHA256}  /etc/apk/keys/alpine-signing@azul.com-5d5dc44c.rsa.pub" | sha256sum -c - && \
+    apk --repository https://repos.azul.com/zulu/alpine --no-cache add zulu21-jre~=21.0.7 tzdata
+
+ENV JAVA_HOME=/usr/lib/jvm/zulu21
+
+# Set Python binary for Yarn
+RUN yarn config set python /usr/bin/python3
+
+# Set up a virtual environment for mkdocs-techdocs-core
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
+# Install MkDocs + CookieCutter
+RUN pip install --no-cache-dir \
+    mkdocs-techdocs-core \
+    mkdocs-git-revision-date-localized-plugin \
+    cookiecutter \
+    mkdocs-section-index
+
+# Install PlantUML
+ENV PLANTUML_VERSION=1.2025.2
+RUN curl -L -o /opt/plantuml.jar https://github.com/plantuml/plantuml/releases/download/v${PLANTUML_VERSION}/plantuml-${PLANTUML_VERSION}.jar
+RUN echo -e '#!/bin/sh\nexec java -jar /opt/plantuml.jar "$@"' > /usr/local/bin/plantuml && chmod +x /usr/local/bin/plantuml
+
+# Install @techdocs/cli
+RUN npm install -g @techdocs/cli
+
+WORKDIR /docs
+
+ENTRYPOINT ["sh"]
